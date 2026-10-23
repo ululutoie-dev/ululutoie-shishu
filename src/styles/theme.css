@@ -1,0 +1,17 @@
+/* 色・書体・文字サイズ・余白はここだけで変更できます */
+:root {
+  --bg: #f4eee0;
+  --ink: #2a2521;
+  --ink-soft: #7a7067;
+  --rule: rgba(42, 37, 33, 0.22);
+  --font: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", "Noto Serif CJK JP", serif;
+  --fs-body: 1rem;
+  --fs-lyric: 1rem;
+  --lh-lyric: 2.15;
+  --fs-title: 1.45rem;
+  --fs-cover: 2.1rem;
+  --ls-wide: 0.3em;
+  --page-x: clamp(28px, 8vw, 56px);
+  --page-y: clamp(36px, 9vh, 72px);
+  --measure: 32rem;
+}

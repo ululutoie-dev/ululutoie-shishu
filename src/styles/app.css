@@ -1,0 +1,27 @@
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--bg); }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: var(--fs-body); font-weight: 400; overflow-x: hidden; }
+a { color: inherit; text-decoration: none; }
+.page { max-width: var(--measure); min-height: 100dvh; margin: 0 auto;
+  padding: calc(var(--page-y) + env(safe-area-inset-top)) calc(var(--page-x) + env(safe-area-inset-right)) calc(var(--page-y) + env(safe-area-inset-bottom)) calc(var(--page-x) + env(safe-area-inset-left)); }
+.rule { border: 0; border-top: 1px solid var(--rule); margin: 1.6rem 0; }
+.rule.short { width: 2.5rem; margin: 2.4rem auto; }
+.topnav { font-size: 0.85rem; color: var(--ink-soft); letter-spacing: 0.1em; margin-bottom: 2.4rem; }
+.topnav.foot { margin: 0; }
+.heading { font-size: var(--fs-title); font-weight: 400; letter-spacing: 0.12em; line-height: 1.6; margin: 0; overflow-wrap: anywhere; }
+
+.cover { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.cover-name { font-size: var(--fs-cover); font-weight: 400; letter-spacing: var(--ls-wide); margin: 0 0 0 var(--ls-wide); }
+.cover-sub { margin: 1.2rem 0 0 var(--ls-wide); letter-spacing: var(--ls-wide); color: var(--ink-soft); font-size: 0.95rem; }
+.cover-link { font-size: 0.9rem; letter-spacing: 0.3em; padding: 0.8rem 0.5rem; border-bottom: 1px solid var(--rule); }
+
+.toc { list-style: none; margin: 2.2rem 0 0; padding: 0; border-top: 1px solid var(--rule); }
+.toc li { border-bottom: 1px solid var(--rule); }
+.toc a { display: flex; gap: 1.4rem; align-items: baseline; padding: 1.1rem 0; }
+.toc-no { color: var(--ink-soft); font-size: 0.85rem; font-variant-numeric: tabular-nums; letter-spacing: 0.1em; }
+.toc-title { letter-spacing: 0.08em; overflow-wrap: anywhere; }
+
+.lyrics-no { color: var(--ink-soft); font-size: 0.85rem; letter-spacing: 0.1em; margin: 0 0 0.6rem; }
+.lyrics { text-align: left; }
+.line { margin: 0; font-size: var(--fs-lyric); line-height: var(--lh-lyric); letter-spacing: 0.04em;
+  white-space: pre-wrap; overflow-wrap: anywhere; }
