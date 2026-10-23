@@ -1,18 +1,10 @@
-// 表示専用：1行を「フレーズ＋後ろの全角スペース数」に分ける。歌詞データは変更しない。
-// 原稿の行内の全角スペースは、画面上では「折り返し位置になれる空き」として表示する。
-export function splitLine(text) {
-  const out = { lead: 0, phrases: [] }
-  let pend = 0
-  for (const part of text.split(/(\u3000+)/)) {
-    if (part === '') continue
-    if (/^\u3000+$/.test(part)) {
-      if (out.phrases.length === 0) out.lead = part.length
-      else pend = part.length
-    } else {
-      if (out.phrases.length) out.phrases[out.phrases.length - 1].gap = pend
-      pend = 0
-      out.phrases.push({ t: part, gap: 0 })
-    }
-  }
-  return out // 行末の全角スペースは表示しない（データには残る）
+// 表示専用。歌詞データ(songs.js)は変更しない。
+// 原稿の1行の中の全角スペース（フレーズの区切り）ごとに、画面上の独立した1行へ分ける。
+// 行頭の全角スペースは字下げとして保持する（indent＝全角スペースの数）。行末の空白は表示に影響しないので省く。
+// 空文字の行は {blank:true}（段落の空き）。画面幅による折り返しとは別物で、折り返しはCSSが行う。
+export function displayLines(line) {
+  if (line === '') return [{ blank: true }]
+  const lead = /^\u3000*/.exec(line)[0].length
+  const out = line.slice(lead).split(/\u3000+/).filter((p) => p !== '').map((t, i) => ({ t, indent: i === 0 ? lead : 0 }))
+  return out.length ? out : [{ blank: true }]
 }

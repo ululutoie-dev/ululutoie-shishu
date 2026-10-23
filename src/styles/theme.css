@@ -1,13 +1,11 @@
-/* 固定のタイポ設計値。編集画面から変えられる項目（色・書体・本文サイズ・行間・余白・線）は src/lib/theme.js に集約。 */
+/* 固定のタイポ設計値。調整する項目（色・書体・文字サイズ・行間・各行の間隔・文字列の幅・余白・線の濃さ・曲ごとの調整）は src/lib/theme.js に集約。 */
 :root {
   --fs-body: 1rem;
-  --fs-title: 1.6rem;
-  --fs-cover: 2.4rem;
-  --ls-cover: 0.42em;
-  --ls-title: 0.1em;
-  --ls-lyric: 0.04em;
-  --hang: 1em;        /* 折り返し行の字下げ（原稿の改行と区別するため） */
-  --line-gap: 0.18em; /* 原稿の行どうしのわずかな間隔 */
-  --stanza-gap: 2.2em;/* 空行（意図的な段落区切り）の高さ */
-  --measure: 32rem;
+  --fs-cover: 2.1rem;
+  --ls-cover: 0.38em;
+  --ls-title: 0.16em;
+  --ls-lyric: 0.03em;
+  --hang: 1em;         /* 画面幅で折り返した続きの字下げ。原稿の改行と区別するため */
+  --stanza-gap: 2.4em; /* 空行（段落区切り）。通常の行の間隔とは異なる大きさ。現在の歌詞データに空行はない */
+  --measure: 30rem;
 }

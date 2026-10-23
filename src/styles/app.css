@@ -4,31 +4,31 @@ body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f
 a { color: inherit; text-decoration: none; }
 .page { max-width: var(--measure); min-height: 100dvh; margin: 0 auto;
   padding: calc(var(--page-y) + env(safe-area-inset-top)) calc(var(--page-x) + env(safe-area-inset-right)) calc(var(--page-y) + env(safe-area-inset-bottom)) calc(var(--page-x) + env(safe-area-inset-left)); }
-.rule { border: 0; border-top: 1px solid var(--rule); margin: 1.6rem 0; }
-.rule.short { width: 2.2rem; margin: 3rem auto; }
-.rule.short.left { margin: 3.2rem 0 1.6rem; }
-.topnav { font-size: 0.82rem; color: var(--ink-soft); letter-spacing: 0.12em; margin-bottom: 3rem; }
-.topnav.foot { margin: 0; }
-.heading { font-family: var(--font-title); font-size: var(--fs-title); font-weight: 400; letter-spacing: var(--ls-title); line-height: 1.7; margin: 0; overflow-wrap: anywhere; text-wrap: balance; }
-.heading.sm { font-size: 1.05rem; letter-spacing: 0.3em; color: var(--ink-soft); }
+.topnav { font-size: 0.78rem; color: var(--ink-soft); letter-spacing: 0.14em; margin-bottom: 3.5rem; }
+.heading { font-family: var(--font-title); font-size: var(--fs-title); font-weight: 400; letter-spacing: var(--ls-title); line-height: 1.8; margin: 0; overflow-wrap: anywhere; text-wrap: balance; }
 
-.cover { display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center; }
-.cover-body { margin: auto 0; padding-bottom: 12vh; }
-.cover-name { font-family: var(--font-title); font-size: var(--fs-cover); font-weight: 400; letter-spacing: var(--ls-cover); margin: 0 calc(var(--ls-cover) * -1) 0 0; line-height: 1.5; }
-.cover-sub { font-family: var(--font-title); margin: 1.6rem calc(0.7em * -1) 0 0; letter-spacing: 0.7em; color: var(--ink-soft); font-size: 0.9rem; }
-.cover-link { font-size: 0.82rem; letter-spacing: 0.4em; padding: 0.8rem 0 0.8rem 0.4em; border-bottom: 1px solid var(--rule); color: var(--ink-soft); }
+/* 表紙：文字だけ。重心は中央よりやや上 */
+.cover { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.cover-body { margin: 9rem 0 auto; }
+.cover-name { font-family: var(--font-title); font-size: var(--fs-cover); font-weight: 400; letter-spacing: var(--ls-cover); margin: 0 calc(var(--ls-cover) * -1) 0 0; line-height: 1.6; }
+.cover-sub { font-family: var(--font-title); margin: 1.8rem -0.6em 0 0; letter-spacing: 0.6em; color: var(--ink-soft); font-size: 0.82rem; }
+.cover-link { font-size: 0.78rem; letter-spacing: 0.4em; padding: 0.8rem 0 0.8rem 0.4em; border-bottom: 1px solid var(--rule); color: var(--ink-soft); }
 
-.toc { list-style: none; margin: 2.4rem 0 0; padding: 0; border-top: 1px solid var(--rule); }
+/* 目次：細い罫線と広い余白 */
+.toc { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }
 .toc li { border-bottom: 1px solid var(--rule); }
-.toc a { display: flex; gap: 1.6rem; align-items: baseline; padding: 1.55rem 0; }
-.toc-no { flex: none; width: 1.6em; color: var(--ink-soft); font-size: 0.72rem; font-variant-numeric: tabular-nums; letter-spacing: 0.1em; }
-.toc-title { font-family: var(--font-title); font-size: 1.12rem; letter-spacing: 0.1em; line-height: 1.6; overflow-wrap: anywhere; }
+.toc a { display: flex; gap: 1.5rem; align-items: baseline; padding: 1.55rem 0; min-height: 3.4rem; }
+.toc-no { flex: none; width: 1.6em; color: var(--ink-soft); font-size: 0.68rem; font-variant-numeric: tabular-nums; letter-spacing: 0.1em; }
+.toc-title { font-family: var(--font-title); font-size: 1rem; letter-spacing: 0.12em; line-height: 1.7; overflow-wrap: anywhere; }
 
+/* 歌詞：左揃え・幅を絞った文字列。曲名とのあいだに明確な間 */
 .song-head { margin-bottom: var(--gap-title); }
-.lyrics-no { color: var(--ink-soft); font-size: 0.74rem; letter-spacing: 0.14em; margin: 0 0 1rem; }
-.lyrics { text-align: left; }
-/* 1行＝原稿の1行。画面幅で折り返した続きは var(--hang) だけ下げ、次の原稿行と見分けられる */
-.line { margin: 0 0 var(--line-gap); font-size: var(--fs-lyric); line-height: var(--lh-lyric); letter-spacing: var(--ls-lyric);
-  padding-left: var(--hang); text-indent: calc(var(--hang) * -1); overflow-wrap: anywhere; line-break: strict; }
-.phrase { display: inline-block; max-width: 100%; text-indent: 0; }
+.lyrics-no { color: var(--ink-soft); font-size: 0.68rem; letter-spacing: 0.14em; margin: 0 0 1.1rem; }
+.lyrics { text-align: left; max-width: var(--lyrics-width); font-size: var(--fs-lyric); }
+/* 1つの <p> ＝ 画面上の独立した1行。画面幅を超えた行だけ折り返し、続きは var(--hang) 下がる */
+.line { margin: 0 0 var(--line-gap); line-height: var(--lh-lyric); letter-spacing: var(--ls-lyric);
+  padding-left: var(--hang); text-indent: calc(var(--hang) * -1);
+  overflow-wrap: anywhere; line-break: strict; text-wrap: pretty; }
 .stanza-gap { height: var(--stanza-gap); }
+.end-rule { width: 2rem; margin: 4.5rem 0 1.8rem; border: 0; border-top: 1px solid var(--rule); }
+.topnav.foot { margin: 0; }
