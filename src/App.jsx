@@ -1,7 +1,12 @@
-import { useEffect, useState } from 'react'
-import { book, songs } from './data/songs.js'
+import { lazy, Suspense, useEffect, useState } from 'react'
+import { book, songs as staticSongs } from './data/songs.js'
+import { defaultTheme, applyTheme } from './lib/theme.js'
+import { hasBackend, loadBook } from './lib/store.js'
+import { Cover, SongList, Lyrics } from './views.jsx'
 
-// ハッシュルーティング: #/ 表紙, #/songs 曲一覧, #/songs/<id> 歌詞（Vercel等でも設定不要）
+const Admin = lazy(() => import('./admin/Admin.jsx')) // 公開側の読み込みを軽く保つ
+
+// ハッシュルーティング: #/ 表紙, #/songs 目次, #/songs/<id> 歌詞, #/admin 管理画面（どこからもリンクしない）
 const parse = (h) => h.replace(/^#\/?/, '').split('/').filter(Boolean)
 function useRoute() {
   const [r, setR] = useState(parse(window.location.hash))
@@ -12,60 +17,24 @@ function useRoute() {
   }, [])
   return r
 }
-const titleOf = (s) => s.title ?? book.untitledLabel
-const pad = (n) => String(n).padStart(2, '0')
-
-function Cover() {
-  return (
-    <main className="page cover">
-      <h1 className="cover-name">{book.artist}</h1>
-      <p className="cover-sub">{book.subtitle}</p>
-      <hr className="rule short" />
-      <a className="cover-link" href="#/songs">目次</a>
-    </main>
-  )
-}
-
-function SongList() {
-  return (
-    <main className="page">
-      <nav className="topnav"><a href="#/">表紙</a></nav>
-      <h2 className="heading">目次</h2>
-      <ol className="toc">
-        {songs.map((s) => (
-          <li key={s.id}>
-            <a href={`#/songs/${s.id}`}>
-              <span className="toc-no">{pad(s.no)}</span>
-              <span className="toc-title">{titleOf(s)}</span>
-            </a>
-          </li>
-        ))}
-      </ol>
-    </main>
-  )
-}
-
-function Lyrics({ id }) {
-  const s = songs.find((x) => x.id === id)
-  if (!s) return <SongList />
-  return (
-    <main className="page">
-      <nav className="topnav"><a href="#/songs">‹ 目次</a></nav>
-      <p className="lyrics-no">{pad(s.no)}</p>
-      <h2 className="heading">{titleOf(s)}</h2>
-      <hr className="rule" />
-      <div className="lyrics">
-        {s.lyrics.map((line, i) => <p className="line" key={i}>{line}</p>)}
-      </div>
-      <hr className="rule" />
-      <nav className="topnav foot"><a href="#/songs">‹ 目次へ戻る</a></nav>
-    </main>
-  )
-}
 
 export default function App() {
   const [a, b] = useRoute()
-  if (a === 'songs' && b) return <Lyrics id={b} />
-  if (a === 'songs') return <SongList />
-  return <Cover />
+  // バックエンド未設定なら同梱の songs.js をそのまま使う。設定済みなら保存済みデータを読む。
+  const [data, setData] = useState({ songs: staticSongs, theme: defaultTheme, ready: !hasBackend })
+  useEffect(() => {
+    if (!hasBackend) return
+    let live = true
+    const done = (d) => live && setData((p) => ({ ...p, ...d, ready: true }))
+    const t = setTimeout(() => done({}), 4000) // 取得に失敗・遅延しても同梱データで表示
+    loadBook().then((r) => { clearTimeout(t); done(r ? { songs: r.songs, theme: { ...defaultTheme, ...r.theme } } : {}) }).catch(() => { clearTimeout(t); done({}) })
+    return () => { live = false; clearTimeout(t) }
+  }, [])
+  useEffect(() => { applyTheme(data.theme) }, [data.theme])
+
+  if (!data.ready) return <div className="page" />
+  if (a === 'admin') return <Suspense fallback={null}><Admin initial={data} book={book} /></Suspense>
+  if (a === 'songs' && b) return <Lyrics songs={data.songs} id={b} book={book} />
+  if (a === 'songs') return <SongList songs={data.songs} book={book} />
+  return <Cover book={book} />
 }

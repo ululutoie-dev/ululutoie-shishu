@@ -1,17 +1,13 @@
-/* 色・書体・文字サイズ・余白はここだけで変更できます */
+/* 固定のタイポ設計値。編集画面から変えられる項目（色・書体・本文サイズ・行間・余白・線）は src/lib/theme.js に集約。 */
 :root {
-  --bg: #f4eee0;
-  --ink: #2a2521;
-  --ink-soft: #7a7067;
-  --rule: rgba(42, 37, 33, 0.22);
-  --font: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", "Noto Serif CJK JP", serif;
   --fs-body: 1rem;
-  --fs-lyric: 1rem;
-  --lh-lyric: 2.15;
-  --fs-title: 1.45rem;
-  --fs-cover: 2.1rem;
-  --ls-wide: 0.3em;
-  --page-x: clamp(28px, 8vw, 56px);
-  --page-y: clamp(36px, 9vh, 72px);
+  --fs-title: 1.6rem;
+  --fs-cover: 2.4rem;
+  --ls-cover: 0.42em;
+  --ls-title: 0.1em;
+  --ls-lyric: 0.04em;
+  --hang: 1em;        /* 折り返し行の字下げ（原稿の改行と区別するため） */
+  --line-gap: 0.18em; /* 原稿の行どうしのわずかな間隔 */
+  --stanza-gap: 2.2em;/* 空行（意図的な段落区切り）の高さ */
   --measure: 32rem;
 }

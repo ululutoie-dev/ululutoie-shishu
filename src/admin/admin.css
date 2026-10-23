@@ -1,0 +1,29 @@
+.admin { background: #f6f6f4; color: #222; min-height: 100dvh; font: 15px/1.6 system-ui, -apple-system, "Hiragino Sans", "Yu Gothic", sans-serif; padding-bottom: 4.5rem; }
+.admin * { letter-spacing: normal; }
+.admin a { text-decoration: underline; }
+.adm-narrow { max-width: 24rem; margin: 0 auto; padding: 3rem 1.2rem; }
+.adm-bar { display: flex; gap: 1rem; align-items: center; padding: 0.7rem 1rem; background: #fff; border-bottom: 1px solid #ddd; flex-wrap: wrap; }
+.adm-mail { flex: 1; color: #777; font-size: 12px; overflow: hidden; text-overflow: ellipsis; }
+.adm-grid { display: grid; gap: 1rem; padding: 1rem; grid-template-columns: 1fr; }
+@media (min-width: 900px) { .adm-grid { grid-template-columns: minmax(340px, 1fr) minmax(360px, 1fr); align-items: start; } .adm-prev { position: sticky; top: 1rem; } }
+.adm-panel, .adm-prev { background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 1rem; min-width: 0; }
+.adm-col { display: flex; flex-direction: column; gap: 0.9rem; margin-top: 1rem; }
+.admin input, .admin textarea, .admin select, .admin button { font: inherit; }
+.admin input:not([type=range]):not([type=color]), .admin textarea, .admin select { width: 100%; padding: 0.5rem; border: 1px solid #bbb; border-radius: 4px; background: #fff; }
+.admin textarea { font-family: "Hiragino Mincho ProN", "Yu Mincho", serif; line-height: 1.8; }
+.admin button { padding: 0.45rem 0.8rem; border: 1px solid #aaa; background: #fff; border-radius: 4px; cursor: pointer; }
+.admin button:disabled { opacity: 0.4; cursor: default; }
+.admin button.primary { background: #2a2521; color: #fff; border-color: #2a2521; }
+.admin button.danger { color: #a33; }
+.adm-tabs { display: flex; gap: 0.4rem; margin-bottom: 0.8rem; }
+.adm-tabs .on { background: #2a2521; color: #fff; }
+.adm-songs { list-style: none; margin: 0 0 0.8rem; padding: 0; display: flex; flex-direction: column; gap: 0.3rem; }
+.adm-songs li { display: flex; gap: 0.3rem; } .adm-songs li.on .pick { background: #ece7da; }
+.adm-songs .pick { flex: 1; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.adm-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.adm-row > span { flex: 0 0 9.5rem; } .adm-row b { margin-left: 0.5rem; font-weight: 400; color: #777; font-size: 12px; }
+.adm-row input[type=range], .adm-row select { flex: 1; }
+.hint { color: #777; font-size: 12px; margin: 0; } .err { color: #a33; }
+.preview-frame { background: var(--bg); color: var(--ink); font-family: var(--font); border: 1px solid #ccc; max-height: 70dvh; overflow: auto; pointer-events: none; }
+.preview-frame .page { min-height: 0; } .preview-frame .cover { min-height: 28rem; }
+.adm-save { position: fixed; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 0.7rem 1rem calc(0.7rem + env(safe-area-inset-bottom)); background: #fff; border-top: 1px solid #ddd; font-size: 13px; }
