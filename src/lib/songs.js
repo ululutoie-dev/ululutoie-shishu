@@ -1,15 +1,13 @@
-import { supabase, hasBackend, BUCKET } from './supabase.js'
 import { songs as raw } from '../data/songs.js'
 
-// 同梱データ（Supabase未設定・取得失敗・テーブルが空のときの表示元／初回移行の元データ）。lyrics は改行区切りの1つの文字列。
-export const staticSongs = raw.map((s) => ({ id: s.id, title: s.title, lyrics: s.lyrics.join('\n'), photo_path: null }))
+// 画像は public/ に置くので、サイトのベースパス（通常は "/"）からの相対パスで参照する。
+const base = import.meta.env?.BASE_URL ?? '/'
+export const photoUrl = (path) => (path ? base + String(path).replace(/^\/+/, '') : null)
 
-export const photoUrl = (path) => (path && supabase ? supabase.storage.from(BUCKET).getPublicUrl(path).data.publicUrl : null)
-export const withUrl = (s) => ({ ...s, photoUrl: s.photoUrl !== undefined ? s.photoUrl : photoUrl(s.photo_path) })
+// 表示用の曲リスト：order の小さい順（同じ値なら書いた順）。歌詞本文には一切手を加えない。
+export const songs = [...raw].sort((a, b) => a.order - b.order).map((s) => ({ ...s, photoUrl: photoUrl(s.photo) }))
 
-export async function fetchSongs() {
-  if (!hasBackend) return null
-  const { data, error } = await supabase.from('songs').select('id,title,lyrics,sort_order,photo_path').order('sort_order', { ascending: true })
-  if (error) throw error
-  return data
+if (import.meta.env?.DEV) {
+  const seen = new Set()
+  for (const s of songs) { if (seen.has(s.id)) console.warn(`[songs.js] id が重複しています: ${s.id}`); seen.add(s.id) }
 }
