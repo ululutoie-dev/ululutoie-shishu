@@ -26,8 +26,8 @@ export const book = {
 
 // 表紙の下に並ぶ詩集。新しい詩集はここに追加できます。
 export const collections = [
-  { id: 'shishu-1', order: 1, title: '詩集 1', subtitle: '詩集', theme: 'light' },
-  { id: 'shishu-2', order: 2, title: '詩集 2', subtitle: '詩集', theme: 'warm' },
+  { id: 'shishu-1', order: 1, title: 'ululuと家 1', subtitle: '詩集', theme: 'light' },
+  { id: 'shishu-2', order: 2, title: 'ululuと家 2', subtitle: '詩集', theme: 'warm' },
 ]
 
 export const songs = [
