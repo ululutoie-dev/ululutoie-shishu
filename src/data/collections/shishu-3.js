@@ -4,9 +4,9 @@ import { text } from '../text.js'
 export default {
   id: 'shishu-3',
   order: 3,
-  title: 'ululuと家 3',
+  title: 'ululutoie 3',
   subtitle: '詩集',
-  theme: { bg: '#ffffff', ink: '#1c1c1c' },
+  theme: { bg: '#000000', ink: '#f5f5f5' },
 
   songs: [
     {
