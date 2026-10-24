@@ -80,3 +80,8 @@
 ## 将来のアニメーション表示について（今回は未実装）
 - 歌詞データ（`songs.js`）と表示（`views.jsx`）は分離してあります。歌詞本文の表示は `LyricsText` に集約し、改行・空行・全角スペースは `toParagraphs()`（`src/lib/lyrics.js`）の結果（段落 → 行）として扱えます。
 - 曲ごとの表示方式は `displayModes`（`views.jsx`）から選ぶ作りです。将来は曲データに `display: 'animated'` などを足し、対応する表示コンポーネントを `displayModes` に追加します。
+
+
+## 詩集・歌詞の追加
+
+歌詞データは `src/data/songs.js` で管理します。各曲の `collectionId` を `shishu-1` または `shishu-2` に設定し、詩集内の `order` を 1 から順に指定してください。新しい詩集は `collections` 配列に追加し、その `id` を各曲の `collectionId` に使います。歌詞の改行・空行はテンプレート文字列の中で維持されます。
