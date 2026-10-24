@@ -5,19 +5,29 @@
 起動: `npm install` → `npm run dev` ／ ビルド確認: `npm run build`
 
 ## 画面
-- `#/` 表紙 ／ `#/songs` 目次 ／ `#/songs/<曲のid>` 歌詞
+- `#/` 共通表紙（詩集一覧） ／ `#/collection/<詩集id>/songs` 詩集ごとの目次 ／ `#/collection/<詩集id>/songs/<曲id>` 歌詞
+- 旧URL `#/songs` と `#/songs/<曲id>` も詩集1として引き続き利用できます
 - `#/design` デザイン調整（プレビュー専用。どこからもリンクしていません。気に入った設定の「設定コード」を `src/lib/theme.js` に貼って反映します）
 
 ## 構成
 | ファイル | 役割 |
 |---|---|
-| `src/data/songs.js` | **曲名・曲順・歌詞・写真パス**（編集するのは基本的にここだけ） |
+| `src/data/songs.js` | **詩集一覧・曲名・曲順・歌詞・写真パス**（編集するのは基本的にここだけ） |
 | `public/images/songs/` | 曲ごとの写真を置くフォルダ |
 | `src/lib/songs.js` | データを表示順に並べる（歌詞には手を加えない） |
 | `src/lib/lyrics.js` | 歌詞の文字列を段落・行に分ける（改行・空行の解釈） |
 | `src/views.jsx` | 表紙・目次・歌詞ページ。歌詞本文の表示は `LyricsText`、表示方式の選択は `displayModes` |
 | `src/lib/theme.js` / `src/styles/` | デザイン設定とCSS |
 | `src/design/` | デザイン調整画面 |
+
+## 詩集の追加
+`src/data/songs.js` の `collections` 配列に1冊追加します。`id` は半角英数字とハイフンで、重複しない値にしてください。各曲の `collectionId` をその詩集の `id` に合わせると、その詩集の目次に表示されます。
+
+```js
+{ id: 'shishu-3', order: 3, title: '詩集 3', subtitle: '詩集', theme: 'light' },
+```
+
+詩集ごとの色分けは、今回はまだ表示へ反映していません。まず共通入口と複数詩集の導線を用意しています。
 
 ## 歌詞・曲名の変更
 `src/data/songs.js` を開き、該当する曲を直接編集します。歌詞は `text`...`` の中にそのまま書きます。

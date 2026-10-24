@@ -4,26 +4,33 @@ import { songVars } from './lib/theme.js'
 const titleOf = (s, book) => s.title || book.untitledLabel
 const pad = (n) => String(n).padStart(2, '0')
 
-export function Cover({ book }) {
+export function Cover({ book, collections = [] }) {
   return (
     <main className="page cover">
       <div className="cover-body">
         <h1 className="cover-name">{book.artist}</h1>
         <p className="cover-sub">{book.subtitle}</p>
       </div>
-      <a className="cover-link" href="#/songs">目次</a>
+      <section className="collection-entry" aria-label="詩集一覧">
+        {collections.map((c, i) => (
+          <a className="collection-link" href={`#/collection/${c.id}/songs`} key={c.id}>
+            <span className="collection-no">{pad(i + 1)}</span>
+            <span className="collection-title">{c.title}</span>
+          </a>
+        ))}
+      </section>
     </main>
   )
 }
 
-export function SongList({ songs, book }) {
+export function SongList({ songs, book, collection }) {
   return (
     <main className="page">
-      <nav className="topnav"><a href="#/">表紙</a></nav>
+      <nav className="topnav"><a href="#/">表紙</a>{collection ? <span className="nav-sep"> / {collection.title}</span> : null}</nav>
       <ol className="toc">
         {songs.map((s, i) => (
           <li key={s.id}>
-            <a href={`#/songs/${s.id}`}>
+            <a href={collection ? `#/collection/${collection.id}/songs/${s.id}` : `#/songs/${s.id}`}>
               <span className="toc-no">{pad(i + 1)}</span>
               <span className="toc-title">{titleOf(s, book)}</span>
             </a>
@@ -55,14 +62,14 @@ export function LyricsText({ text }) {
 // 曲ごとの表示方式。曲データに display を足したときに、ここから選ぶ（未指定は 'normal'）。今は通常表示のみ。
 export const displayModes = { normal: LyricsText }
 
-export function Lyrics({ songs, id, book, overrides }) {
+export function Lyrics({ songs, id, book, overrides, collection }) {
   const i = songs.findIndex((x) => x.id === id)
   if (i < 0) return <SongList songs={songs} book={book} />
   const s = songs[i]
   const Body = displayModes[s.display] || displayModes.normal
   return (
     <main className="page" style={songVars(overrides)}>
-      <nav className="topnav"><a href="#/songs">‹ 目次</a></nav>
+      <nav className="topnav"><a href={collection ? `#/collection/${collection.id}/songs` : '#/songs'}>‹ 目次</a></nav>
       {s.photoUrl ? <figure className="song-photo"><img src={s.photoUrl} alt="" loading="lazy" decoding="async" /></figure> : null}
       <header className="song-head">
         <p className="lyrics-no">{pad(i + 1)}</p>
@@ -70,7 +77,7 @@ export function Lyrics({ songs, id, book, overrides }) {
       </header>
       <Body text={s.lyrics} />
       <hr className="end-rule" />
-      <nav className="topnav foot"><a href="#/songs">‹ 目次へ戻る</a></nav>
+      <nav className="topnav foot"><a href={collection ? `#/collection/${collection.id}/songs` : '#/songs'}>‹ 目次へ戻る</a></nav>
     </main>
   )
 }
