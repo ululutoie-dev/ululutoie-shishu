@@ -1,8 +1,8 @@
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useLayoutEffect, useState } from 'react'
 import { book, collections } from './data/songs.js'
 import { songs } from './lib/songs.js'
 import { Cover, SongList, Lyrics } from './views.jsx'
-import { defaultTheme } from './lib/theme.js'
+import { defaultTheme, applyTheme, themeFor } from './lib/theme.js'
 
 const DesignEditor = lazy(() => import('./design/DesignEditor.jsx'))
 
@@ -20,6 +20,11 @@ function useRoute() {
 export default function App() {
   const route = useRoute()
   const [a, b, c] = route
+
+  // 詩集ごとの背景色・文字色：開いている詩集（目次・歌詞）のテーマを、描画前に適用する。表紙・デザイン調整は標準（白背景）。
+  const active = a === 'collection' ? collections.find((x) => x.id === b) : a === 'songs' ? collections[0] : null
+  useLayoutEffect(() => { applyTheme(themeFor(active?.theme)) }, [active?.id])
+
   if (a === 'design') return <Suspense fallback={null}><DesignEditor songs={songs} book={book} /></Suspense>
 
   // 旧URLも引き続き動くように、#/songs は詩集1の目次として扱う
