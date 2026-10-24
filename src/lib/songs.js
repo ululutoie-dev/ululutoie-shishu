@@ -5,7 +5,7 @@ const base = import.meta.env?.BASE_URL ?? '/'
 export const photoUrl = (path) => (path ? base + String(path).replace(/^\/+/, '') : null)
 
 // 表示用の曲リスト：order の小さい順（同じ値なら書いた順）。歌詞本文には一切手を加えない。
-export const songs = [...raw].sort((a, b) => a.order - b.order).map((s) => ({ ...s, photoUrl: photoUrl(s.photo) }))
+export const songs = raw.filter(Boolean).sort((a, b) => a.order - b.order).map((s) => ({ ...s, photoUrl: photoUrl(s.photo) }))
 
 if (import.meta.env?.DEV) {
   const seen = new Set()
