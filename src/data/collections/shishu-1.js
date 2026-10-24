@@ -13,7 +13,7 @@ export default {
   order: 1,
   title: "ululuと家 1",
   subtitle: "詩集",
-  theme: { bg: "#ffffff", ink: "#1c1c1c" },
+  theme: { bg: "#8D9695", ink: "#1c1c1c" },
 
   songs: [
     // 原稿: docx段落1–15
