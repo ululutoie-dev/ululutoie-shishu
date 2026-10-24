@@ -19,6 +19,19 @@ export const defaultTheme = {
   // 曲ごとの個別調整（idは songs.js の id）。使える項目: fsLyric, lhLyric, lineGap, gapTitle
   songOverrides: {},
 }
+// 詩集ごとの見た目：各詩集ファイル（src/data/collections/）の theme（背景色 bg・文字色 ink など）を、標準の値に重ねて使う。
+export const themeFor = (theme) => ({ ...defaultTheme, ...(theme && typeof theme === 'object' ? theme : {}) })
+
+// 背景と文字色の読みやすさ（WCAGのコントラスト比）。開発中の確認用。
+export function contrastRatio(hexA, hexB) {
+  const lum = (hex) => {
+    const m = /^#([0-9a-f]{6})$/i.exec(hex || ''); const n = m ? parseInt(m[1], 16) : 0
+    return [n >> 16, (n >> 8) & 255, n & 255].map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4 })
+      .reduce((acc, v, i) => acc + v * [0.2126, 0.7152, 0.0722][i], 0)
+  }
+  const [x, y] = [lum(hexA), lum(hexB)].sort((p, q) => q - p)
+  return (x + 0.05) / (y + 0.05)
+}
 export const songKeys = ['fsLyric', 'lhLyric', 'lineGap', 'gapTitle']
 const rgba = (hex, a) => {
   const m = /^#([0-9a-f]{6})$/i.exec(hex || '')
