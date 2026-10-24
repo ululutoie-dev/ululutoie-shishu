@@ -256,7 +256,6 @@ export const songs = [
 おんなじ時間
 `,
   },
-]
   // 原稿: ululuと家1詩集.pdf 6ページ「胸の穴」。行分けは後から調整できます。
   {
     id: "mune-no-ana",
@@ -286,4 +285,4 @@ export const songs = [
 らららら　ゆだねられた音楽　感じながら
 `,
   },
-
+]
