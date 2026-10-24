@@ -1,4 +1,4 @@
-import { displayLines } from './lib/phrases.js'
+import { toParagraphs, leadingIndent } from './lib/lyrics.js'
 import { songVars } from './lib/theme.js'
 
 const titleOf = (s, book) => s.title || book.untitledLabel
@@ -34,7 +34,11 @@ export function SongList({ songs, book }) {
   )
 }
 
-// 歌詞の1つの表示単位＝1つの <p>。原稿の行頭の字下げは保持し、画面幅で折り返した続きは1字ぶら下げて区別する。
+// 行頭の全角スペース（字下げ）はそのまま表示する。そのうえで、折り返しの続きは「字下げ＋1字」下げ、入力した改行と見分けられるようにする。
+const indentStyle = (n) => (n ? { paddingLeft: `calc(var(--hang) + ${n}em)`, textIndent: `calc((var(--hang) + ${n}em) * -1)` } : undefined)
+
+// 歌詞：改行＝次の行（1つの <p>）、空行＝段落の区切り（<div class="para"> の間）。全角スペースは white-space: pre-wrap でそのまま表示。
+// 原稿の改行と画面幅による折り返しは、折り返しの続きを1字ぶら下げて区別する。
 export function Lyrics({ songs, id, book, overrides }) {
   const i = songs.findIndex((x) => x.id === id)
   if (i < 0) return <SongList songs={songs} book={book} />
@@ -42,15 +46,17 @@ export function Lyrics({ songs, id, book, overrides }) {
   return (
     <main className="page" style={songVars(overrides)}>
       <nav className="topnav"><a href="#/songs">‹ 目次</a></nav>
+      {s.photoUrl ? <figure className="song-photo"><img src={s.photoUrl} alt="" loading="lazy" decoding="async" /></figure> : null}
       <header className="song-head">
         <p className="lyrics-no">{pad(i + 1)}</p>
         <h2 className="heading">{titleOf(s, book)}</h2>
       </header>
       <div className="lyrics">
-        {s.lyrics.flatMap((l, k) => displayLines(l).map((d, j) => (
-          d.blank ? <div className="stanza-gap" key={`${k}-${j}`} aria-hidden="true" />
-                  : <p className="line" key={`${k}-${j}`} style={d.indent ? { paddingLeft: `${1 + d.indent}em` } : undefined}>{d.t}</p>
-        )))}
+        {toParagraphs(s.lyrics).map((p, k) => (
+          <div className="para" key={k} style={p.breaks > 1 ? { marginTop: `calc(var(--para-gap) * ${p.breaks})` } : undefined}>
+            {p.lines.map((l, j) => <p className="line" key={j} style={indentStyle(leadingIndent(l))}>{l}</p>)}
+          </div>
+        ))}
       </div>
       <hr className="end-rule" />
       <nav className="topnav foot"><a href="#/songs">‹ 目次へ戻る</a></nav>

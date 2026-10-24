@@ -28,7 +28,9 @@ a { color: inherit; text-decoration: none; }
 /* 1つの <p> ＝ 画面上の独立した1行。画面幅を超えた行だけ折り返し、続きは var(--hang) 下がる */
 .line { margin: 0 0 var(--line-gap); line-height: var(--lh-lyric); letter-spacing: var(--ls-lyric);
   padding-left: var(--hang); text-indent: calc(var(--hang) * -1);
-  overflow-wrap: anywhere; line-break: strict; text-wrap: pretty; }
-.stanza-gap { height: var(--stanza-gap); }
+  white-space: pre-wrap; overflow-wrap: anywhere; line-break: strict; text-wrap: pretty; }
+.para + .para { margin-top: var(--para-gap); }
+.song-photo { margin: 0 0 2.4rem; }
+.song-photo img { display: block; width: 100%; max-width: 100%; height: auto; }
 .end-rule { width: 2rem; margin: 4.5rem 0 1.8rem; border: 0; border-top: 1px solid var(--rule); }
 .topnav.foot { margin: 0; }

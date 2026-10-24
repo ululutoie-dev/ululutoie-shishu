@@ -49,6 +49,7 @@ export default function DesignEditor({ songs, book }) {
           <Range k="fsLyric" label="本文の文字サイズ" min={0.85} max={1.3} step={0.01} unit="rem" />
           <Range k="lhLyric" label="行間（折り返し時）" min={1.4} max={2.4} step={0.05} />
           <Range k="lineGap" label="歌詞の各行の間隔" min={0} max={1.5} step={0.05} unit="em" />
+          <Range k="paraGap" label="段落（空行）の間の余白" min={0.8} max={4.5} step={0.1} unit="em" />
           <Range k="lyricsWidth" label="歌詞の文字列の幅" min={12} max={26} step={0.5} unit="em" />
           <Range k="gapTitle" label="曲名と歌詞の間" min={1} max={8} step={0.1} unit="rem" />
           <Range k="pageX" label="左右の余白" min={16} max={64} step={1} unit="px" />

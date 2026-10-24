@@ -11,6 +11,7 @@ export const defaultTheme = {
   fsLyric: 0.95,     // 本文の文字サイズ (rem)
   lhLyric: 1.75,     // 折り返したときの行の間隔（倍率）
   lineGap: 0.4,      // 歌詞の各行の間隔（1行ごとの追加の余白, em）
+  paraGap: 2.2,      // 段落（空行）の間の余白 (em)。行間・各行の間隔とは別。空行を重ねるとその倍数になる
   lyricsWidth: 19,   // 歌詞の文字列の幅（全角で約何文字分か, em）。画面いっぱいに広げない
   gapTitle: 3.6,     // 曲名と最初の歌詞の間 (rem)
   pageX: 36, pageY: 56, // ページ全体の余白 (px)
@@ -33,7 +34,7 @@ export function themeVars(theme) {
     '--font-title': (fonts[t.fontTitle] || fonts.mincho).stack,
     '--fs-title': `${t.fsTitle}rem`, '--fs-lyric': `${t.fsLyric}rem`,
     '--lh-lyric': String(t.lhLyric), '--line-gap': `${t.lineGap}em`,
-    '--gap-title': `${t.gapTitle}rem`, '--lyrics-width': `${t.lyricsWidth}em`,
+    '--para-gap': `${t.paraGap}em`, '--gap-title': `${t.gapTitle}rem`, '--lyrics-width': `${t.lyricsWidth}em`,
     '--page-x': `${t.pageX}px`, '--page-y': `${t.pageY}px`,
   }
 }
