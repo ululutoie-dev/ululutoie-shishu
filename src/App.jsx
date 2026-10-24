@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
 import { book, collections } from './data/songs.js'
 import { songs } from './lib/songs.js'
-import { Cover, CollectionList, SongList, Lyrics } from './views.jsx'
+import { Cover, SongList, Lyrics } from './views.jsx'
 import { defaultTheme } from './lib/theme.js'
 
 const DesignEditor = lazy(() => import('./design/DesignEditor.jsx'))
