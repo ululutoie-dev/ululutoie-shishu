@@ -5,7 +5,7 @@ export default {
   order: 4,
   title: 'うるるといえ4',
   subtitle: '詩集',
-  theme: { bg: '#EADCC7', ink: '#000000' },
+  theme: { bg: '#EADCC7', ink: '#49382D' },
 
   songs: [
     {
