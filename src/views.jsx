@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { toParagraphs, leadingIndent } from './lib/lyrics.js'
+import { photoUrl } from './lib/songs.js'
 import { songVars } from './lib/theme.js'
 
 const titleOf = (s, book) => s.title || book.untitledLabel
@@ -23,10 +25,27 @@ export function Cover({ book, collections = [] }) {
   )
 }
 
+// 詩集のジャケット（目次ページの上部）。画像は public/covers/<詩集id>.jpg（.png / .webp も可）を探す。
+// 詩集データの cover に 'covers/xxx.jpg' のように書けば、その画像を使う（省略可）。
+// 見つからない・読み込めないときは何も表示しない（ページはそのまま表示される）。
+const COVER_EXTS = ['jpg', 'png', 'webp']
+export function AlbumCover({ collection }) {
+  const urls = collection.cover ? [photoUrl(collection.cover)] : COVER_EXTS.map((ext) => photoUrl(`covers/${collection.id}.${ext}`))
+  const [i, setI] = useState(0)        // 何番目の候補を試しているか
+  const [loaded, setLoaded] = useState(false)
+  if (i >= urls.length) return null    // 候補がすべて見つからなかった
+  return (
+    <figure className="album-cover" style={loaded ? undefined : { display: 'none' }}>
+      <img src={urls[i]} alt={`${collection.title} ジャケット`} decoding="async" onLoad={() => setLoaded(true)} onError={() => setI((n) => n + 1)} />
+    </figure>
+  )
+}
+
 export function SongList({ songs, book, collection }) {
   return (
     <main className="page">
       <nav className="topnav"><a href="#/">表紙</a>{collection ? <span className="nav-sep"> / {collection.title}</span> : null}</nav>
+      {collection ? <AlbumCover key={collection.id} collection={collection} /> : null}
       <ol className="toc">
         {songs.map((s, i) => (
           <li key={s.id}>

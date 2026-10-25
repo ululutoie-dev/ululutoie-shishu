@@ -44,3 +44,7 @@ a { color: inherit; text-decoration: none; }
 .collection-no { font-size: 0.68rem; letter-spacing: 0.1em; }
 .collection-title { font-family: var(--font-title); font-size: 0.95rem; letter-spacing: 0.18em; }
 .nav-sep { margin-left: 0.6rem; }
+
+/* 詩集のジャケット：目次の上部・中央。正方形を想定し、縦横比は維持。狭い画面では自動で縮む */
+.album-cover { margin: 0 0 2.6rem; }
+.album-cover img { display: block; width: 200px; max-width: 100%; height: auto; margin: 0 auto; box-shadow: 0 0 0 1px var(--rule); }
