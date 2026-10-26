@@ -165,16 +165,16 @@ oh oh oh oh
       photo: null,
       lyrics: text`
 初めから わかってたの
-虫の知らせ　驚きはしない
+虫の知らせ　驚きはない
 失くしたもの
 Lose You
-Lose yourself
+Lose Yourself
 
 簡単に言う 取るに足りない
 独り言は いつのまにか
 失くしたもの
 Lose You
-Lose yourself
+Lose Yourself
 
 昨日のこと 踊りながら
 このまま ここで 待ちわびる
@@ -205,7 +205,7 @@ Lose yourself
 借り物の ギターを弾く 馴染みのない
 感触に 途方に暮れる
 Lose You
-Lose yourself
+Lose Yourself
 `,
     },
     {
@@ -348,7 +348,7 @@ You got a 誰この子になる
 面白いけど
 どうしてこうなった
 
-お気に入りの場所じゃやなくなるように
+お気に入りの場所じゃなくなるように
 人々が集い　潰し合うような
 風通しの悪い場所があるように
 お気に入りのビートで壊せたらいいな
