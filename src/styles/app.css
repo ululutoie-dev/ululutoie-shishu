@@ -48,3 +48,4 @@ a { color: inherit; text-decoration: none; }
 /* 詩集のジャケット：目次の上部・中央。正方形を想定し、縦横比は維持。狭い画面では自動で縮む */
 .album-cover { margin: 0 0 2.6rem; }
 .album-cover img { display: block; width: 200px; max-width: 100%; height: auto; margin: 0 auto; box-shadow: 0 0 0 1px var(--rule); }
+.event-link { margin-top: 2.2rem; padding: 0.9rem 1.2rem 0.9rem calc(1.2rem + 0.3em); font-size: 0.72rem; letter-spacing: 0.3em; color: var(--ink-soft); }
