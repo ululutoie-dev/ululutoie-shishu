@@ -7,6 +7,7 @@ export const book = {
   artist: 'うるるといえ',
   subtitle: '詩集',
   untitledLabel: '（曲名未確認）',
+  eventLink: { label: 'LIVE／EVENT', url: 'https://event-info-live.vercel.app/#/' },
 }
 
 // 詩集：order の小さい順
