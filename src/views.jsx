@@ -21,7 +21,7 @@ export function Cover({ book, collections = [] }) {
           </a>
         ))}
       </section>
-            {book.eventLink?.url ? <a className="event-link" href={book.eventLink.url}>{book.eventLink.label || 'LIVE／EVENT'}</a> : null}
+                  {book.eventLink?.url ? <a className="event-link" href={book.eventLink.url} target="_blank" rel="noopener noreferrer">{book.eventLink.label || 'LIVE／EVENT'}</a> : null}
     </main>
   )
 }
